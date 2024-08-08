@@ -15,6 +15,8 @@
 CTimerClient::CTimerClient(QWidget * parent):QDialog(parent)
 {
     setWindowTitle(tr("多线程时间服务客户端"));
+
+    // [0] 构造服务器连接信息,及布局
     m_serverNameLabel = new QLabel(tr("服务器名: "));
     m_serverLineEdit = new QLineEdit("Localhost");
     m_portLabel      = new QLabel(tr("端口"));
@@ -27,29 +29,33 @@ CTimerClient::CTimerClient(QWidget * parent):QDialog(parent)
     layout->addWidget(m_serverLineEdit,0,1);
     layout->addWidget(m_portLabel,1,0);
     layout->addWidget(m_portLineEdit,1,1);
+    // [0] 构造服务器连接信息,及布局 [本块结束]
 
-
+    // [1] 构造控制 按钮及提示信息的对象和布局
     m_stateLabel     = new QLabel(tr("请首先运行时间服务器!"));
     m_getBtn         = new QPushButton(tr("获取时间"));
     m_quitBtn        = new QPushButton(tr("退出"));
     m_dateTimeEdit   = new QDateTimeEdit;
 
-
     QHBoxLayout *hLayout_1 = new QHBoxLayout;
     hLayout_1->addStretch();
     hLayout_1->addWidget(m_getBtn);
     hLayout_1->addWidget(m_quitBtn);
+    // [1] 构造控制 按钮及提示信息的对象和布局 [本块结束]
 
+    // [2] 最终布局
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addLayout(layout);
     mainLayout->addWidget(m_dateTimeEdit);
     mainLayout->addWidget(m_stateLabel);
     mainLayout->addLayout(hLayout_1);
+    // [2] 最终布局 [本块结束]
 
-
+    // [3] 设置控件的默认属性
     m_portLineEdit->setFocus();
     m_getBtn->setDefault(true);
     m_getBtn->setEnabled(false);
+    // [3] 设置控件的默认属性 [本块结束]
 
     connect(m_serverLineEdit,&QLineEdit::textChanged,this,&CTimerClient::enableGetBtn);
     connect(m_portLineEdit,&QLineEdit::textChanged,this,&CTimerClient::enableGetBtn);
@@ -81,6 +87,7 @@ void CTimerClient::getTime()
 
 void CTimerClient::readTime()
 {
+    // 将socket作为其设备（device）。这意味着 QDataStream 将从这个套接字中读取数据。
     QDataStream in(m_tcpSocket);
     in.setVersion(QDataStream::Qt_5_12);
 
