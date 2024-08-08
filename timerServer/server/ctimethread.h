@@ -8,7 +8,7 @@ class CTimeThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit CTimeThread(int socketDescriptor,QObject *parent = nullptr);
+    explicit CTimeThread(qintptr socketDescriptor,QObject *parent = nullptr);
 protected:
     void run() override;
 
@@ -16,7 +16,7 @@ signals:
     void error(QTcpSocket::SocketError errStr);
 
 private:
-    int m_sockerIntptr;
+    qintptr m_sockerIntptr;
 };
 
 #endif // CTIMETHREAD_H

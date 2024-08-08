@@ -10,7 +10,7 @@ class CTcperver : public QTcpServer
 public:
     explicit CTcperver(QObject *parent = nullptr);
 protected:
-    void incomingConnection(int sockerDescriptor);
+    void incomingConnection(qintptr handle);
 private:
     MainWindow *dlg;
 

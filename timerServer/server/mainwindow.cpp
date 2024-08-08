@@ -25,7 +25,7 @@ MainWindow::MainWindow(QDialog *parent)
 
     m_count = 0;
     m_server = new CTcperver(this);
-    if(!m_server->listen())
+    if(!m_server->listen(QHostAddress::Any,9527))
     {
         QMessageBox::critical(this,tr("多线程时间服务器"),tr("无法启动服务器: %1").arg(m_server->errorString()));
         close();

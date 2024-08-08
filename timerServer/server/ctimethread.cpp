@@ -2,7 +2,7 @@
 #include <QDateTime>
 #include <QDataStream>
 
-CTimeThread::CTimeThread(int socketDescriptor,QObject *parent)
+CTimeThread::CTimeThread(qintptr socketDescriptor,QObject *parent)
     :QThread(parent),m_sockerIntptr(socketDescriptor)
 {}
 
